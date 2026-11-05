@@ -4,6 +4,8 @@ This is a template for a company knowledge base that an AI agent maintains. You 
 
 The repo ships with a small sample wiki for Bumblewick Umbrella Repair, a fictional shop in the fictional town of Drizzleton. All its people, companies and documents are invented.
 
+Andrej Karpathy's LLM wiki idea was an influence on this template.
+
 ## How it is organized
 
 | Folder | What it holds | Who changes it |
@@ -64,9 +66,9 @@ Remove the sample, then replace the company line in `CLAUDE.md`:
 python3 scripts/clear_sample.py --yes
 ```
 
-The script deletes everything in `inbox/`, `raw/`, `outputs/` and `wiki/`, then writes a blank index and log. It refuses to run once the sample index is gone, so it cannot wipe real content.
+The script deletes only the sample files named in its `SAMPLE_FILES` list, then writes a blank index and log. It refuses to run, and deletes nothing, if `inbox/` or `raw/` holds anything else, if the sample index is gone, or if the repo has uncommitted changes. It cannot wipe real content: a file it does not list is never touched, and because the tree must be committed first, anything it does delete is still in git history. It also needs a git repo, so it will refuse a downloaded zip. If you tried the sample above, start from a fresh clone, because the agent's work will stop the script.
 
-Keep the repo private, because it will hold contracts, client names and money. Put your first documents in `inbox/` and ask the agent to ingest them.
+Keep the repo private, because it will hold contracts, client names and money. A GitHub fork of a public repo can't be private, so clone this repo and push it to a new private repo instead. Put your first documents in `inbox/` and ask the agent to ingest them.
 
 ## The lint script
 
