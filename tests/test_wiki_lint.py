@@ -134,6 +134,11 @@ class Sources(WikiCase):
         self.write("wiki/topics/rent.md", page("[[entities/shop]]", "[raw/../README.md]"))
         self.assertEqual(self.pages_flagged("bad-source"), ["wiki/topics/rent.md"])
 
+    def test_existing_file_outside_the_source_layers_is_not_a_source(self):
+        self.write("README.md", "not a source\n")
+        self.write("wiki/topics/rent.md", page("[[entities/shop]]", "[README.md]"))
+        self.assertEqual(self.pages_flagged("bad-source"), ["wiki/topics/rent.md"])
+
     def test_source_page_must_reach_a_raw_file(self):
         self.write(
             "wiki/sources/lease.md",
